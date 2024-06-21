@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
@@ -7,9 +7,33 @@ function App() {
   const [messageInput, setMessageInput] = useState("");
 
   // WebSocket connection setup goes here
+  useEffect(() => {
+    const socket = new WebSocket("ws://localhost:3001");
+
+    socket.onopen = () => {
+      console.log("WebSocket connection established.");
+    };
+
+    socket.onmessage = (event) => {
+      const receivedMessage = JSON.parse(event.data);
+      setMessages([...messages, receivedMessage]);
+    };
+
+    return () => {
+      socket.close();
+    };
+  }, [messages]);
 
   const sendMessage = () => {
     // Implement sending messages via WebSocket here
+    if (messageInput.trim() !== "") {
+      const message = {
+        text: messageInput,
+        timestamp: new Date().toISOString(),
+      };
+      socket.send(JSON.stringify(message));
+      setMessageInput("");
+    }
   };
 
   return (
