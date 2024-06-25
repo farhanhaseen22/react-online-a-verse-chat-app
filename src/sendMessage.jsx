@@ -2,6 +2,9 @@ import { useState } from "react";
 
 function LoginSection({ onLogin }) {
   const [username, setUsername] = useState("");
+
+  const WS_URL = new WebSocket("ws://localhost:3001");
+
   useWebSocket(WS_URL, {
     share: true,
     filter: () => false,
@@ -23,7 +26,9 @@ function LoginSection({ onLogin }) {
     });
   };
 
-  const sendMessage = () => {
+  const sendMessage = (messageInput) => {
+    const socket = new WebSocket("ws://localhost:3001");
+
     if (messageInput.trim() !== "") {
       const message = {
         text: messageInput,

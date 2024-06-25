@@ -24,8 +24,10 @@ function App() {
     };
   }, [messages]);
 
-  const sendMessage = () => {
-    // Implement sending messages via WebSocket here
+  // Implement sending messages via WebSocket here
+  const sendMessage = (messageInput) => {
+    const socket = new WebSocket("ws://localhost:3001");
+
     if (messageInput.trim() !== "") {
       const message = {
         text: messageInput,
