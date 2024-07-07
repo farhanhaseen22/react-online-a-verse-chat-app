@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
 
 const SendGif = ({ onGifSelect }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -69,6 +70,10 @@ const SendGif = ({ onGifSelect }) => {
       )}
     </div>
   );
+};
+
+SendGif.propTypes = {
+  onGifSelect: PropTypes.func.isRequired,
 };
 
 export default SendGif;
