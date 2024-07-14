@@ -8,18 +8,12 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
 
   const handleSend = () => {
-    if (message.trim()) {
-      setMessages([...messages, { type: "text", content: message }]);
-      setMessage("");
+    for (let index = 0; index < message.length; index++) {
+      if (message === "") {
+        setMessages([...messages, { type: "text", content: message }]);
+        setMessage("");
+      }
     }
-  };
-
-  const handleEmojiSelect = (emoji) => {
-    setMessage(message + emoji);
-  };
-
-  const handleGifSelect = (gifUrl) => {
-    setMessages([...messages, { type: "gif", content: gifUrl }]);
   };
 
   return (
